@@ -1,1 +1,248 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global Typography */
+:root {
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Base Typography */
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-primary);
+  line-height: 1.5;
+  color: #333333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 0.5em;
+}
+
+p, ul, ol, dl {
+  margin-bottom: 1rem;
+}
+
+/* Form Typography */
+input, textarea, select, button {
+  font-family: var(--font-primary);
+}
+
+/* Custom Toastr Styles */
+.toast-container .ngx-toastr {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 8px !important;
+  padding: 20px 50px !important;
+  align-items: center !important;
+  position: relative !important;
+}
+
+/* Remove default toastr icons */
+.toast-container .ngx-toastr:before {
+  display: none !important;
+}
+
+.toast-container .ngx-toastr .toast-message {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Success toast */
+.toast-success {
+  background-color: #0a5d2c !important;
+  color:  #ffffff !important;
+}
+
+.toast-success .toast-message:before {
+  font-size: 18px !important;
+  margin-right: 8px !important;
+  font-weight: bold !important;
+}
+
+/* Error toast */
+.toast-error {
+  background-color: #b91c1c !important;
+  color:#fff !important;
+}
+
+.toast-error .toast-message:before {
+
+  font-size: 18px !important;
+  margin-right: 8px !important;
+  font-weight: bold !important;
+}
+
+/* Warning toast */
+.toast-warning {
+  background-color: #9a3412 !important;
+  color: #fff !important;
+}
+
+.toast-warning .toast-message:before {
+
+  font-size: 18px !important;
+  margin-right: 8px !important;
+  font-weight: bold !important;
+}
+
+/* Info toast */
+.toast-info {
+  background-color: #1e40af !important;
+  color: #fff !important;
+}
+
+.toast-info .toast-message:before {
+
+  font-size: 18px !important;
+  margin-right: 8px !important;
+  font-weight: bold !important;
+  font-style: italic !important;
+}
+
+/* Toast close button - keep only one instance */
+.toast-close-button {
+  position: absolute !important;
+  right: 12px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: currentColor !important;
+  opacity: 0.7 !important;
+  font-size: 16px !important;
+  background: none !important;
+  border: none !important;
+  padding: 4px !important;
+  cursor: pointer !important;
+}
+
+.toast-close-button:hover {
+  opacity: 1 !important;
+}
+
+/* Progress bar */
+.toast-progress {
+  height: 4px !important;
+  opacity: 0.2 !important;
+  background-color: #fff !important;
+  bottom: 0 !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+/* .form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  width: 100%;
+}
+
+.form-group {
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  background-color: #f8f9fa;
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #000;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.error {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.save {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+}
+
+.save:hover {
+  background-color: #0056b3;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+}
+
+.modal-container {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.back {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  align-self: flex-end;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.back:hover {
+  background-color: #333;
+} */
