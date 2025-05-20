@@ -1,0 +1,84 @@
+<p class="page-title">Services</p>
+<div class="container">
+  <div class="header">
+    <h2 class="title">Service</h2>
+    <button class="btn" (click)="openServiceForm('create')">+ New Service</button>
+  </div>
+  <div class="toolbar">
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Search" />
+      <button class="search-button">
+        <i class="material-icons">search</i>
+      </button>
+    </div>
+    <div class="filter-container">
+      <!-- <span class="filter-icon">
+    <i class="material-icons"></i> Filter
+      </span> -->
+      <span class="massAction">MASS ACTION</span>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>SERVICE ID</th>
+          <th>NAME</th>
+          <th>LOCATION</th>
+          <th>STATUS</th>
+          <th>TOTAL COST</th>
+          <th>ACTION</th>
+          <th>SELECT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of servicesFromFirestore ">
+          <td>{{ s.id }}</td>
+          <td>{{ s.name }}</td>
+          <td>{{ s.location}}</td>
+          <td>{{ s.status}}</td>
+          <td>{{ s.fee}}</td>
+          <td>
+            <div class="account-menu">
+              <button (click)="toggleActionDropdown(s.id) ; $event.stopPropagation()">... </button>
+              <div class="dropdown" *ngIf="isDropdownVisible && selectedServiceId === s.id">
+                <ul>
+                  <li><a>View <b> service detail</b></a></li>
+                  <li><a (click)="openServiceForm('update' , s)">Edit <b> service detail</b></a></li>
+                  <li><a>Deactive <b> service </b> </a></li>
+                  <li><a (click)="deleteService(s.id)" style="color : #c52103  ">Delete <b> service detail</b></a></li>
+                </ul>
+              </div>
+            </div>
+          </td>
+          <td><input type="checkbox" /></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+      <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">&#8249;</button>
+      <span>{{ currentPage }} / {{ totalPages }}</span>
+      <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage === totalPages">&#8250;</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal-overlay" *ngIf="showServiceFormDialog">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h3>{{isUpdateMode ? 'Update Service' : 'Add New Service'}}</h3>
+    </div>
+    <div class="modal-scroll-content">
+      <!-- Insert the service form component here -->
+      <app-service-form [serviceFormData]="serviceFormData" (formSubmitted)="onFormSubmitted()"
+        (formClosed)=" closeServiceFormDialog()"></app-service-form>
+      <button class="back" (click)="closeServiceFormDialog()">Cancel</button>
+
+    </div>
+  </div>
+</div>

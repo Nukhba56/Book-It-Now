@@ -1,0 +1,256 @@
+.main {
+  background-color: #DFE5FD;
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.setup-guide {
+  background-color: #fff;
+  max-width: 1200px;
+  width: 100%;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.setup-guide h2 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+  background-color: #f2f3f4;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.setup-guide p {
+  font-size: 1rem;
+  margin: 1rem 0;
+  padding: 0 1rem;
+  line-height: 1.5;
+}
+
+.setup-guide h6 {
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+  font-size: 1rem;
+}
+
+.progress-bar {
+  background-color: #f2f3f4;
+  height: 8px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 4px;
+  margin: 1rem auto;
+  overflow: hidden;
+}
+
+.progress {
+  background-color: #000;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.step {
+  background-color: #f0f6fc;
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+
+  width: 100%;
+  max-width: 600px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #000;
+  outline: none;
+}
+
+.form-group select {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.error {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-primary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.back, .save, .skip {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  margin: 1rem 0;
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+
+.back {
+  float: left;
+  margin-right: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.save {
+  display: inline-block;
+  margin-left: 25rem;
+  float: none;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.back:hover, .save:hover,  .skip:hover {
+  background-color: #333;
+}
+.skip {
+  margin: 1rem auto;
+  display: block;
+}
+.setupPayment {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  width: auto;
+  position: absolute;
+  right: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-right: 13rem;
+
+}
+
+.setupPayment:hover {
+  background-color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main {
+    padding: 1rem;
+  }
+
+  .setup-guide {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .setup-guide h2 {
+    font-size: 1.5rem;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+  }
+
+  .other-email {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .back, .save {
+    width: 100%;
+    margin: 0.5rem 0;
+    float: none;
+    display: block;
+  }
+
+  .back {
+    margin-right: 0;
+  }
+
+  .save {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .setup-guide h2 {
+    font-size: 1.25rem;
+  }
+
+  .setup-guide p,
+  .setup-guide h6 {
+    font-size: 0.875rem;
+  }
+
+  .form-group label {
+    font-size: 0.875rem;
+  }
+
+  .btn-primary,
+  .back,
+  .save,
+  .setupAvailability,
+  .defaultAvailability,
+  .setupPayment,
+  .skip {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+}
+

@@ -1,0 +1,61 @@
+<form [formGroup]="businessDetailForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="businessName"> Business Name </label>
+    <input type="text" id="businessname" formControlName="businessName" class="form-control" />
+    <div *ngIf="businessDetailForm.get('businessName')?.invalid && businessDetailForm.get('cardName')?.touched"
+      class="error">
+      Business Name is required
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="detail"> Business Details (Optional) </label>
+    <textarea type="text" id="detail" formControlName="detail" class="form-control"> </textarea>
+
+  </div>
+
+  <div class="form-group">
+    <label>Business Address:</label>
+    <input id="address" type="text" formControlName="address" placeholder="Address" class="form-control" />
+    <br>
+    <input id="state" name="state" formControlName="state" placeholder="State / Province" type="text"
+      class="form-control" /> <br>
+
+    <input id="city" name="city" formControlName="city" placeholder="Town or City" type="text" class="form-control" />
+
+  </div>
+  <div class="form-group">
+    <input id="code" name="code" formControlName="code" placeholder="Zip Code / Post Code" type="number"
+      class="form-control" />
+
+  </div>
+
+  <div class="form-group">
+    <label for="contactNumber">Primary Contact Number</label>
+    <input id="contactNumber" name="contactNumber" formControlName="contactNumber" type="text" class="form-control" />
+    <div *ngIf="businessDetailForm.get('contactNumber')?.invalid && businessDetailForm.get('contactNumber')?.touched"
+      class="error">
+      Contact No. is required
+    </div>
+
+  </div>
+  <div class="form-group">
+    <label for="primaryEmail">Primary Contact Email</label>
+    <input id="primaryEmail" name="primaryEmail" type="primaryEmail" formControlName="primaryEmail" class="form-control" />
+    <div *ngIf="businessDetailForm.get('primaryEmail')?.invalid && businessDetailForm.get('primaryEmail')?.touched"
+      class="error">
+      Email is required
+    </div>
+  </div>
+
+  <!-- <div class="form-group">
+    <label for="logoFileInput">Business Logo</label>
+    <input type="file" (change)="onImageChange($event)" id="logoFileInput" class="form-control">
+  </div> -->
+
+  <button type="submit" [disabled]="loading || submitted" class="save">
+    <span *ngIf="loading"></span>
+    {{loading? 'loading...' : buttonLabel}}
+  </button>
+
+</form>

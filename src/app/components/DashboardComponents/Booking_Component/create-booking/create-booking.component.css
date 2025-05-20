@@ -1,0 +1,587 @@
+.main{
+  background-color: #DFE5FD;
+  border: 1px solid #DFE5FD;
+  padding: 10px;
+   height:695px;
+
+}
+/*
+.setup-guide {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 800px;
+  margin:20px;
+  height: auto;
+}
+
+.setup-guide h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+  background-color: #f2f3f4 ;
+  padding:10px;
+
+
+} */
+
+/* .setup-guide p{
+  padding: 20px;
+  font-size: 16px;
+  margin-left:50px;
+} */
+
+/* .setup-guide h6{
+  padding: 10px;
+  margin-top:20px;
+  margin-left:50px;
+  margin-bottom:10px;
+
+}
+.setup-guide form label {
+  display: block;
+  margin-bottom: 10px;
+} */
+
+.step{
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f0f6fc;
+  border-radius:5px;
+  padding:15px;
+   margin-left:60px;
+   margin-top:40px;
+  max-width: 1400px;
+  height: 600px; /* Set the maximum height of the container */
+  overflow-y: auto; /* Add vertical scrolling */
+
+}
+.notDone{
+  position: absolute;
+  top: 320px;
+  left: 550px;
+  padding:10px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  border-radius: 5px;
+  border-bottom-left-radius: 5px;
+  transform-origin: top right;
+  width:100px;
+  height:60px;
+
+}
+.done{
+
+  position: absolute;
+  top: 320px;
+  right: 560px;
+  padding:10px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  border-radius: 5px;
+  border-bottom-left-radius: 5px;
+  transform-origin: top right;
+  width:100px;
+  height:60px;
+
+}
+
+.confirm{
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #f0f6fc;
+  border-radius:5px;
+  padding:20px;
+   margin-left:500px;
+   margin-top:190px;
+  width: 500px;
+  height: 200px; /* Set the maximum height of the container */
+
+
+}
+
+ h6{
+  text-align: center;
+  font-size: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  padding-left: 400px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+
+.form-group input,textarea{
+  width: 50%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.form-group select {
+  width: 50%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.back{
+  /* padding: 10px 30px;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  bottom: 0px; */
+
+  position: absolute;
+  bottom: 70px;
+  left: 100px;
+  padding:10px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  border-radius: 5px;
+  border-bottom-left-radius: 5px;
+  /* transform: rotate(45deg); */
+  transform-origin: bottom left;
+  width:100px;
+  height:60px;
+
+}
+
+.save{
+
+  position: absolute;
+  bottom: 70px;
+  right: 100px;
+  padding:10px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  background-color: #000;
+  color: #fff;
+  border-radius: 5px;
+  border-bottom-left-radius: 5px;
+  transform-origin: bottom right;
+  width:100px;
+  height:60px;
+
+}
+
+
+.booking-dialog {
+
+  /* padding: 10px; */
+  border-radius: 10px;
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); */
+  max-width: 1000px;
+  margin:60px auto;
+}
+
+
+
+.booking-content {
+  display: flex;
+  gap: 10px;
+}
+
+.calendar {
+
+  padding: 10px;
+  border-radius: 8px;
+  flex: 1;
+
+}
+
+.calendar-header {
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+.calendar-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.days{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* 7 columns for the days */
+  gap: 5px;
+}
+
+.day {
+  padding: 8px 15px;
+  text-align: center;
+  cursor: pointer;
+  background: #DFE5FD;
+  border-radius: 30px;
+  height:30px;
+}
+
+.day.empty {
+  pointer-events: none;
+  background:none;
+}
+
+.day.empty:hover{
+
+  background: transparent;
+}
+
+.day.selected {
+  background: #007bff;
+  color: #f5f9fc;
+
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 18px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.calendar-btn{
+  background: none;
+  border:none;
+  margin-left: 80px;
+  font-size: 30px;
+}
+
+.time-slots {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 1px;
+  width: 100%;
+}
+
+.time-slots-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 50%;
+}
+
+.scrollable-slots {
+  display: flex;
+  flex-direction: column;
+  max-height: 400px; /* Set the maximum height of the container */
+  overflow-y: auto; /* Add vertical scrolling */
+  width: 100%;
+  margin-left:200px;
+  padding: 10px;
+  /* background-color: #f9f9f9; */
+}
+
+.scrollable-slots::-webkit-scrollbar {
+  width: 6px; /* Set the width of the scrollbar */
+}
+
+.scrollable-slots::-webkit-scrollbar-thumb {
+  background-color: #cccccc; /* Set the color of the scrollbar thumb */
+  border-radius: 10px;
+}
+
+/* .scrollable-slots::-webkit-scrollbar-thumb:hover {
+  background-color: #555555;
+} */
+
+.scrollable-slots button {
+  margin: 3px 0;
+  padding: 5px;
+  background-color: #fff;
+  border: 1px solid  #6e44ff;
+  border-radius: 4px;
+  width: 100%; /* Ensure buttons stretch to the width of the container */
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.scrollable-slots button:hover {
+  background-color:  #6e44ff ;
+  color: #ffffff;
+}
+
+.scrollable-slots button.selected {
+
+
+  background:  #6e44ff;
+  color: #ffffff;
+}
+
+
+
+.calendar {
+  font-family: Arial, sans-serif;
+  width: 40%;
+  margin: 0 auto;
+  text-align: center;
+
+  padding:25px;
+  border-radius: 20px;
+  margin-left: 50px;
+}
+
+
+/* Month Header */
+.month-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.month-header h3 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.month-header button {
+  background-color: transparent;
+  font-size: 30px;
+  cursor: pointer;
+  border:none;
+  width:60px;
+  padding:5px;
+  float: right;
+}
+.month-header button:hover{
+  border-radius: 200px;
+  border: 1px solid #512da8;
+  background-color: #DFE5FD;
+}
+/* Service Details */
+.service-details {
+ width: 1000px;
+ padding:15px 10px;
+ margin-top:20px;
+}
+.service-details h3 {
+  color: #000000;
+  margin-bottom: 5px;
+}
+
+.service-details p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+/* Weekdays Row */
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: 80px;
+  font-size: 18px;
+
+}
+
+/* Empty Days */
+.day.empty  {
+  background-color: transparent;
+  cursor: default;
+}
+.day.empty:hover {
+  background-color: transparent;
+  cursor: default;
+}
+
+/* Booked Days */
+.day.booked  {
+  background:   #6e44ff;
+  color: #ffffff;
+}
+
+
+
+.day:hover {
+  background-color:  #6e44ff;
+  color: white;
+  cursor: default;
+}
+
+.day.available  {
+  background:  #6e44ff;
+  color: #ffffff;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+
+
+
+
+/* Hover Effect */
+/* .day:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+} */
+
+.services {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+
+}
+
+.service-box {
+  box-shadow: 0 4px 8px rgba(110, 68, 255, 0.1);
+  width: 400px;
+  padding:15px;
+  height:100xp;
+  font-size:10px;
+  border: 1px solid  #6e44ff;
+  border-radius: 10px;
+  background-color: #f5f9fc;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.service-box.selected {
+  box-shadow: 0 4px 8px rgba(110, 68, 255, 0.1);
+  background-color: #d1e7fd;
+  border-color:  #6e44ff;
+}
+
+.service-box h5 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.service-box p {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 20px;
+}
+
+
+/* payment */
+
+
+
+.payment-container {
+  display: flex;
+  justify-content: space-between;
+  /* padding: 20px; */
+  font-family: Arial, sans-serif;
+}
+
+.service-details {
+  max-width: 400px;
+}
+
+.service-details h1 {
+  font-size: 22px;
+}
+
+.service-details p,
+.service-details h2 {
+  margin: 10px 0;
+}
+
+.payment-form {
+  max-width: 600px;
+  padding: 20px;
+  border-radius: 8px;
+  max-height: 480px; /* Set the maximum height of the container */
+  overflow-y: auto; /* Add vertical scrolling */
+}
+.payment-form::-webkit-scrollbar {
+  width: 6px; /* Set the width of the scrollbar */
+}
+
+.payment-form::-webkit-scrollbar-thumb {
+  background-color: #cccccc; /* Set the color of the scrollbar thumb */
+  border-radius: 10px;
+}
+
+.payment-form h2 {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+.secure-link {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+label {
+
+  font-size:15px;
+  display: block;
+  font-weight:bold
+  margin: 10px 0 5px;
+}
+
+input,
+select , textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size:15px;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.form-row div {
+  flex: 1;
+}
+
+.loading-payment {
+  text-align: center;
+  padding: 20px;
+}
+
+.loading-payment p {
+  color: #666;
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+.loading-payment button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.loading-payment button:hover {
+  background-color: #45a049;
+}

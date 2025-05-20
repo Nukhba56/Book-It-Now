@@ -1,0 +1,74 @@
+<p class="page-title">BookItNow Links</p>
+
+<div class="container">
+  <div class="header">
+    <h2 class="title">BookItNow Links</h2>
+
+  </div>
+
+  <div class="toolbar">
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Search" />
+      <button class="search-button">
+        <i class="material-icons">search</i>
+      </button>
+    </div>
+    <div class="filter-container">
+
+      <!-- <span class="massAction">MASS ACTION</span> -->
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>NAME</th>
+          <!-- <th>STATUS</th> -->
+          <th>SERVICE OFFERED</th>
+          <th>ACTION</th>
+          <th>SELECT</th>
+        </tr>
+      </thead>
+      <tbody>
+
+
+        <tr *ngFor="let booking of bookingLinkData ">
+          <td>{{ booking.businessId }}</td>
+          <td>{{ booking.name }}</td>
+          <!-- <td>{{ booking.status }}</td> -->
+          <td>{{ serviceCount }}</td>
+          <td>
+            <div class="account-menu">
+              <button  (click)="toggleActionDropdown()">... </button>
+
+                <div class="dropdown" *ngIf="isDropdownVisible ">
+                  <ul>
+                    <li><a (click)="copyLink(booking)" >Copy <b> BookItNow Links</b></a></li>
+                    <li><a >View <b> BookItNow Links</b></a></li>
+                    <li><a >Edit <b> BookItNow Links</b></a></li>
+                  </ul>
+                </div>
+              </div>
+            </td>
+          <td><input type="checkbox" /></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+      <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">&#8249;</button>
+      <span>{{ currentPage }} / {{ totalPages }}</span>
+      <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage === totalPages">&#8250;</button>
+    </div>
+  </div>
+
+
+
+</div>
+
+
+
+

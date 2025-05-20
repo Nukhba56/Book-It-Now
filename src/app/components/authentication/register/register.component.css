@@ -1,0 +1,127 @@
+/* Container Styling */
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #DFE5FD;
+  padding: 1rem;
+  width: 100%;
+  max-width: 100vw;
+  margin: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.text-danger{
+  font-size: 16px;
+  color: red;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+.fa-icon{
+  color: #6c757d;
+}
+
+/* Signup Form Styling */
+.signup-form {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+}
+
+.signup-form h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.signup-form p {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+/* Input Group Styling */
+.input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+.input-group i {
+  margin-right: 0.5rem;
+  color: #6c757d;
+  background-color: #f9f9f9;
+}
+
+.input-group input {
+  flex: 1;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: #6c757d;
+  background-color: #f9f9f9;
+}
+
+/* Button Styling */
+.btn {
+  background-color: #512da8;
+  color: #ddd5ff;
+  border:  #512da8;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  text-decoration: none;
+
+}
+/* Login Link */
+.login-link {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.login-link a {
+  color: #512da8;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .signup-form {
+    padding: 1.5rem;
+  }
+
+  .signup-form h2 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .signup-container {
+    padding: 0.5rem;
+  }
+
+  .signup-form {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,337 @@
+/* General Styling */
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #4f5051;
+  margin-bottom: 15px;
+  text-decoration: underline;
+}
+
+.calendar {
+  font-family: Arial, sans-serif;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  background: #fff;
+  padding: 25px;
+  border-radius: 20px;
+}
+
+/* Month Header */
+.month-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.month-header h3 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.month-header button {
+  background-color: transparent;
+  font-size: 30px;
+  cursor: pointer;
+  border: none;
+  width: 60px;
+  padding: 5px;
+  float: right;
+}
+
+.month-header button:hover {
+  border-radius: 100%;
+  width: 50px;
+  border: 1px solid #512da8;
+  background-color: #dfe5fd;
+}
+
+/* Weekdays Row */
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: 80px;
+  font-size: 18px;
+}
+
+/* Days Grid */
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+/* Day Box */
+.day {
+  /* position: relative; ADD THIS */
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 100px;
+  /* display: flex; */
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #dfe5fd;
+  color: #000;
+  transition: 0.3s;
+}
+
+.day span {
+  font-size: 16px;
+  padding-right: 100px;
+  padding-top: 10px;
+}
+/* Booked Days */
+.day.booked {
+  background-color: #6e44ff;
+  color: white;
+}
+
+/* Empty Days */
+.day.empty {
+  background-color: transparent;
+  cursor: default;
+}
+
+.day.empty:hover {
+  background-color: transparent;
+  cursor: default;
+}
+
+.day:hover {
+  background-color: #6e44ff;
+  color: white;
+  cursor: default;
+}
+
+.day.past {
+  color: #aaaaaa;
+  background-color: #e0e0e0;
+  cursor: default;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.modal-content p {
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.slot-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-content input[type="time"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  flex: 1;
+}
+
+.slot-row button {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s ease;
+}
+
+.slot-row button:hover {
+  background: #c0392b;
+}
+
+button.add-slot {
+  background: #2ecc71;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: background 0.2s ease;
+}
+
+button.add-slot:hover {
+  background: #27ae60;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.modal-actions button:first-child {
+  background: #bdc3c7;
+  color: white;
+  margin-right: 300px;
+}
+
+.modal-actions button:first-child:hover {
+  background: black;
+}
+
+.modal-actions button:last-child {
+  background: #3498db;
+  color: white;
+}
+
+.modal-actions button:last-child:hover {
+  background: black;
+}
+
+/* Dropdown Styling */
+.dropdown {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+}
+
+.dropdown-toggle {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.dropdown-toggle:hover {
+  background-color: #dfe5fd;
+  border-radius: 200px;
+  border: 1px solid #512da8;
+  padding: 5px;
+  color: #512da8;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 25px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 115px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.dropdown-menu ul {
+  list-style: none;
+}
+
+.dropdown-menu li {
+  padding: 10px;
+  cursor: pointer;
+  list-style: none;
+  text-align: left;
+  font-size: 16px;
+  color: #333;
+  transition: background-color 0.3s;
+  margin-top: 18px;
+  margin-bottom: 15px;
+  margin-left: -30px;
+  padding: 0px 0px;
+  width: 100%;
+  font-weight: 500;
+  font-family: Arial, sans-serif;
+}
+
+.dropdown-menu li:hover {
+  background-color: rgb(204, 213, 250);
+  border-radius: 4px;
+  padding: 6px 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.availability-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 1rem 0;
+}
+
+#serviceSelector {
+  padding: 6px 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  background: #fff;
+  border: 1px solid #ccc;
+}
+
+.service-heading {
+  margin-bottom: 16px;
+  font-weight: 500;
+  color: #333;
+}

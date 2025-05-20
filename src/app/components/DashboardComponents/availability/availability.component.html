@@ -1,0 +1,95 @@
+
+<p class="title"> Availability</p>
+
+<div class="calendar">
+
+  <div class="month-header">
+    <h3>{{ currentMonth | date: 'MMMM yyyy' }}</h3>
+    <div class="availability-header">
+      <label for="serviceSelector">Select Service:</label>
+      <select id="serviceSelector" [(ngModel)]="selectedServiceId" (change)="onServiceChange()">
+        <option *ngFor="let service of services" [value]="service.id">
+          {{ service.name }}
+        </option>
+      </select>
+    </div>
+    <button  (click)="prevMonth()">&#8249;</button>
+    <button (click)="nextMonth()">&#8250;</button>
+  </div>
+
+  <div class="weekdays">
+    <div *ngFor="let weekday of weekdays">{{ weekday }}</div>
+  </div>
+
+  <div class="days">
+    <div
+      *ngFor="let day of days"
+      class="day"
+      [ngClass]="{
+      empty: !day.date,
+      past: day.isPast,
+      available: day.hasAvailability && !day.isPast,
+      booked: selectedDate && day.date && selectedDate.toDateString() === day.date.toDateString()
+      }"
+      (click)="selectDay(day)">
+      <!-- <span *ngIf="day.date" >{{ day.date | date:'dd'}}</span> -->
+      <ng-container *ngIf="day.date">
+        <div style="display: flex; flex-direction: column; width: 100%">
+          <span style="margin-bottom: 5px">{{ day.date.getDate() }}</span>
+
+          <div *ngIf="!day.isPast" class="dropdown" (click)="$event.stopPropagation()" >
+            <button class="dropdown-toggle" (click)="toggleDropdown(day , $event); $event.stopPropagation()">⋮</button>
+            <ul class="dropdown-menu" *ngIf="day.showDropdown">
+              <li (click)="editDate(day , $event); $event.stopPropagation()"> Edit Date</li>
+              <li (click)="resetToDefault(day, $event); $event.stopPropagation()"> Reset to Default</li>
+            </ul>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<!-- <div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <h3>Set Availability for {{selectedDate | date: 'fullDate'}}</h3>
+    <p>What hours are you available?</p>
+
+    <div *ngFor="let slot of timeSlots; let i = index" class="slot-row">
+      <input type="time" [(ngModel)]="slot.start">
+      _
+
+      <input type="time" [(ngModel)]="slot.end">
+      <button (click)="removeSlot(i)" *ngIf="timeSlots.length > 1 ">X</button>
+    </div>
+
+    <button (click)="addSlot()">+</button>
+    <div class="modal-actions">
+      <button (click)="showModal = false">Cancel</button>
+      <button (click)="saveSlots()">Apply</button>
+    </div>
+  </div>
+</div> -->
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <h3>Set Availability for {{ selectedDate | date: 'fullDate' }}</h3>
+    <p>What hours are you available?</p>
+
+    <div *ngFor="let slot of timeSlots; let i = index" class="slot-row">
+      <input type="time" [(ngModel)]="slot.start" />
+      _
+      <input type="time" [(ngModel)]="slot.end" />
+      <button (click)="removeSlot(i)" *ngIf="timeSlots.length > 1">X</button>
+    </div>
+
+    <button class="add-slot" (click)="addSlot()">+</button>
+
+    <div class="modal-actions">
+      <button (click)="showModal = false">Cancel</button>
+      <button (click)="saveSlots()">Apply</button>
+    </div>
+  </div>
+</div>
+
+

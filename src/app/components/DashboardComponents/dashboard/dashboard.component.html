@@ -1,0 +1,41 @@
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.collapsed]="!isSidebarHidden">
+    <div class="logo">
+      <a routerLink="/dashboard/home">
+        <img src="/images/booking.png" alt="Logo">
+      </a>
+    </div>
+    <nav>
+      <ul>
+        <li *ngFor="let link of links" [ngClass]="{'active-link' : router.isActive(link.path , true)}">
+          <a [routerLink]="link.path" [title]="link.label" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+            <fa-icon [icon]="link.icon"></fa-icon>
+            &nbsp; &nbsp;<span>{{ link.label }}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content" [class.sidebar-collapsed]="!isSidebarHidden">
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <button class="menu-btn" (click)="toggleSidebar()">☰</button>
+
+      <div class="account-menu">
+        <button (click)="toggleAccountDropdown()"><fa-icon class="fa-icon" [icon]="faUserCircle"></fa-icon>&nbsp;   Account <fa-icon  [icon]="faAngleDown"></fa-icon></button>
+        <div class="dropdown" *ngIf="isDropdownVisible">
+          <ul>
+            <li><a>Profile</a></li>
+            <li><a>Settings</a></li>
+            <li><a >Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -1,0 +1,75 @@
+<form [formGroup]="createCustomerForm" (ngSubmit)="onSubmit()">
+
+  <div class="form-group">
+    <label for="customerName">* Full Name</label>
+  <input type="text" id="customerName" formControlName="customerName" class="form-control" />
+  <div *ngIf="createCustomerForm.get('customerName')?.invalid && createCustomerForm.get('customerName')?.touched" class="text-danger">
+    Customer Name is required
+  </div>
+  </div>
+
+  <div class="form-group">
+
+  <label for="phone">* Phone Number</label>
+  <input id="phone" type="text" formControlName="phone" class="form-control" />
+
+<div *ngIf="createCustomerForm.get('phone')?.touched && createCustomerForm.get('phone')?.invalid" class="text-danger">
+  <div *ngIf="createCustomerForm.get('phone')?.errors?.['required']">Cell Phone is required.</div>
+  <div *ngIf="createCustomerForm.get('phone')?.errors?.['pattern']">Invalid phone number format.</div>
+</div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">* Email</label>
+    <input id="email" type="email" formControlName="email" class="form-control" />
+    <div *ngIf="createCustomerForm.get('email')?.touched && createCustomerForm.get('email')?.invalid" class="text-danger">
+      <div *ngIf="createCustomerForm.get('email')?.errors?.['required']">Email is required.</div>
+      <div *ngIf="createCustomerForm.get('email')?.errors?.['email']">Enter a valid email address.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="address">Full Address</label>
+    <input id="address" formControlName="address"  type="text" placeholder="Address Line 1" class="form-control" />
+
+  </div>
+
+  <div class="form-group">
+    <input id="state" formControlName="state" placeholder="State / Province" type="text" class="form-control" />
+
+  </div>
+
+  <div class="form-group">
+    <label for="country" >Country</label>
+    <select id="country" formControlName="country" class="form-control">
+      <option value="United States">United States</option>
+      <option value="Afghanistan">Afghanistan</option>
+      <option value="Pakistan">Pakistan</option>
+      Add other countries
+    </select>
+
+  </div>
+
+
+  <div class="form-row">
+    <div  class="form-group">
+      <input id="zipCode" formControlName="zipCode"  placeholder="Zip Code / Post Code" type="text" class="form-control" />
+    </div>
+    <div class="form-group">
+      <input id="city" formControlName="city" placeholder="Town or City" type="text" class="form-control" />
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="customerNote"> Customer Note:</label>
+    <textarea cols="30" formControlName="customerNote" rows="2" name="Customer" id="Customer">
+      </textarea>
+
+  </div>
+
+
+  <button class="save" type="submit" [disabled]=" loading || submitted">
+    <span *ngIf="loading"></span>
+    {{loading ? 'Loading...' : buttonlabel}}
+  </button>
+</form>

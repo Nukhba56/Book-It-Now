@@ -1,0 +1,36 @@
+
+  <div class="container">
+    <div class="form-container">
+      <!-- Sign-in Section -->
+      <div class="signin-section">
+        <h2>Sign in to your BookItNow account</h2>
+        <p>Sign In with email</p>
+        <form (ngSubmit)="signIn()">
+          <div class="input-group">
+            <fa-icon class="fa-icon" [icon]="faEnvelope"></fa-icon>
+            <input type="email" placeholder="Email" name="email"  (keyup)="ValidateInput($event , 'email')" [(ngModel)]="email" />
+
+          </div>
+          <span class="text-danger">{{error.email}}</span>
+          <div class="input-group">
+            <fa-icon class="fa-icon" [icon]="faLock"></fa-icon>
+            <input [type]="isShowPassword ? 'text' : 'password'" placeholder="Password" name="password" [(ngModel)]="password"  (keyup)="ValidateInput($event , 'password')"  />
+            <fa-icon class="fa-icon" [icon]="isShowPassword ? faEye : faEyeSlash"  (click)="togglePassword()"></fa-icon>
+
+          </div>
+          <span class="text-danger">{{error.password}}</span>
+          <button type="submit" class="btn signin-btn">Sign in</button>
+          <a  class="forgot-password">Forgot password?</a>
+        </form>
+      </div>
+
+      <!-- Sign-up Section -->
+      <div class="signup-section">
+        <h2>Sign up</h2>
+        <p>Don't have a BookItNow account?</p>
+     <a class="btn signup-btn" routerLink="/register">Sign up</a>
+      </div>
+    </div>
+  </div>
+
+

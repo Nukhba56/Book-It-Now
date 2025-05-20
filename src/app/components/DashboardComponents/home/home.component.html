@@ -1,0 +1,114 @@
+
+
+<!-- Stats Section -->
+<section class="stats">
+  <div class="card">BOOKINGS MADE <h2>0</h2> TODAY</div>
+  <div class="card">UPCOMING BOOKINGS <h2>0</h2> TODAY</div>
+  <div class="card">NEW CUSTOMERS <h2>0</h2> TODAY</div>
+</section>
+
+<!-- Quick Actions -->
+<section class="quick-actions">
+  <h3>Quick Actions</h3>
+  <p>Use these buttons to carry out important actions quickly.</p>
+  <div class="actions">
+
+    <button  (click)="createNewCustomer()">+ New Customer</button>
+    <button (click)="createNewService()">+ New Service</button>
+    <button (click)="createBooking()"> + New Booking</button>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="card-bookings">
+    <div class="card-header">
+      <h3>Default Bookerise Link</h3>
+      <div class="menu-icon" (click)="toggleMenu($event)">
+        ...
+      </div>
+      <div class="dropdown-menu" *ngIf="menuOpen">
+        <ul>
+          <li (click)="copyLink()">Copy <span class="highlight">bookItNow link</span></li>
+          <li (click)="editLink()">Edit <span class="highlight">bookItNow link</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card-body">
+      <h4 class="service-title">hair cutt</h4>
+      <p><strong>Description:</strong> no for this time</p>
+      <p><strong>Customer Instructions:</strong> Please arrive 15 minutes before the start of the service.</p>
+      <p><strong>Services Offered:</strong></p>
+      <div class="service-tag">
+        <span>Hair cutt</span>
+        <span class="service-badge">online</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-bookings">
+    <div class="card-header">
+      <h3>Most Popular Services</h3>
+      <div class="menu-icon" (click)="toggleMenu($event)">
+        ...
+      </div>
+      <div class="dropdown-menu" *ngIf="menuOpen">
+        <ul>
+          <li (click)="copyLink()">Copy <span class="highlight">bookItNow link</span></li>
+
+          <li (click)="editLink()">Edit <span class="highlight">bookItNow link</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="card-body">
+      <h4 class="service-title" >Top 5 services booked this month</h4>
+      <p> No data Found</p>
+
+
+    </div>
+  </div>
+</section>
+
+<!-- <div class="container">
+  <h2 class="title">Upcoming Bookings</h2>
+  <div class="toolbar">
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Search" />
+      <button class="search-button">
+        <i class="material-icons">search</i>
+      </button>
+    </div>
+    <div class="filter-container">
+      <span class="filter-icon">
+    <i class="material-icons"></i> Filter
+      </span>
+      <span class="massAction">MASS ACTION</span>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>DATE</th>
+        <th>SERVICE</th>
+        <th>STAFF</th>
+        <th>SERVICE STATUS</th>
+        <th>PAYMENT STATUS</th>
+        <th>ACTION</th>
+        <th>SELECT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="no-results">
+        <td colspan="8">No results.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="pagination">
+
+    <button class="pagination-button" >&#8249;</button>
+    <button class="pagination-button">&#8250;</button>
+  </div>
+</div> -->
+

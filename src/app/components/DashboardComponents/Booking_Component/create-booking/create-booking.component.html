@@ -1,0 +1,157 @@
+<div class="main">
+
+  <!-- Step Content -->
+  <ng-container [ngSwitch]="currentStep">
+
+    <!-- Step 1 -->
+    <div *ngSwitchCase="1" class="step">
+      <h6>Select the service you want to offer.</h6>
+
+      <div class="services">
+        <div *ngFor="let service of services" class="service-box"
+          [ngClass]="{ 'selected': selectedService === service.id  }"
+          (click)="selectService(service.id , currentMonth.getFullYear() , currentMonth.getMonth())">
+
+          <h5> {{service.name}} <span> {{service.fee}}</span></h5>
+          <p> <strong>Duration:</strong> {{service.length}} </p>
+          <p> <strong>Description:</strong> {{service.description}}</p>
+          <p><strong>Location:</strong> {{service.city}} {{service.state}} {{service.code}} </p>
+        </div>
+      </div>
+      <!-- <button class="back " (click)="back()">Back</button> -->
+      <button class="save " (click)="save()">Next</button>
+    </div>
+
+    <!-- Add more steps as needed -->
+
+    <div *ngSwitchCase="2" class="step">
+
+      <!-- <div class="booking-dialog"> -->
+      <!-- Header -->
+      <h6>Select date and time available to offer this service</h6>
+
+      <div class="booking-content">
+        <!-- Calendar -->
+
+        <div class="service-details">
+          <h1><strong>{{selectedServiceDetails.name}}</strong></h1>
+          <p><strong>Full Price:</strong> {{selectedServiceDetails.fee}}</p>
+          <p><strong>Description:</strong> {{selectedServiceDetails.description}}</p>
+          <p>Please arrive 15 minutes before the start of the service.</p>
+        </div>
+
+        <div class="calendar">
+
+          <div class="month-header">
+            <h3>{{ currentMonth | date: 'MMMM yyyy' }}</h3>
+            <button (click)="prevMonth()">&#8249;</button>
+            <button (click)="nextMonth()">&#8250;</button>
+          </div>
+
+          <div class="weekdays">
+            <div *ngFor="let weekday of weekdays">{{ weekday }}</div>
+          </div>
+
+          <div class="days">
+            <div *ngFor="let day of days" class="day" [ngClass]="{
+                    'empty': !day.date,
+                    'booked': day.booked,
+                    'available': day.available,
+
+                  }">
+              <span *ngIf="day.date" (click)="selectDay(day.date)">{{ day.date | date: 'd' }}</span>
+
+              <span *ngIf="!day.date"></span>
+            </div>
+          </div>
+        </div>
+        <!-- Time Slots -->
+        <div class="time-slots">
+
+
+          <div *ngIf="loadingSlots" class="loading">
+            loading Available Time Slots...
+          </div>
+          <div *ngIf="!loadingSlots && timeSlots.length > 0" class="time-slots-container">
+
+            <div class="scrollable-slots">
+              <button *ngFor="let slot of timeSlots" [class.selected]="selectedTimeSlot === slot"
+                (click)="selectTimeSlot(slot)">
+                {{ slot }}
+              </button>
+            </div>
+          </div>
+          <div *ngIf="timeSlots.length === 0 && !loadingSlots">
+            <p>No time slots available for this date.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="back " (click)="back()">Back</button>
+
+      <button class="save" (click)="save()">Next </button>
+    </div>
+
+    <div *ngSwitchCase="3" class="customer step">
+
+      <div class="payment-container">
+
+        <div class="service-details">
+          <h1><strong>{{selectedServiceDetails.name}}</strong></h1>
+          <p><strong>Full Price:</strong> {{selectedServiceDetails.fee}}</p>
+          <p><strong>Description:</strong> {{selectedServiceDetails.description}}</p>
+          <p>Please arrive 15 minutes before the start of the service.</p>
+        </div>
+
+        <div class="payment-form">
+          <h2>Add Your Details</h2>
+
+          <app-customer-form [publicBooking]="true" [CustomerId]="customerId" [customerData]="customerData"
+            (formSubmitted)="customerFormsubmitted($event)"></app-customer-form>
+        </div>
+      </div>
+      <button class="save" (click)="save()">Next </button>
+      <button class="back " (click)="back()">Back</button>
+    </div>
+
+    <div *ngSwitchCase="4" class="step">
+
+
+      <div class="payment-container">
+
+        <div class="service-details">
+          <h1><strong>{{selectedServiceDetails.name}}</strong></h1>
+          <p><strong>Full Price:</strong> {{selectedServiceDetails.fee}}</p>
+          <p><strong>Description:</strong> {{selectedServiceDetails.description}}</p>
+          <p>Please arrive 15 minutes before the start of the service.</p>
+        </div>
+        <div class="payment-form">
+          <h2>Enter payment details</h2>
+          <form [formGroup]="paymentForm">
+            <div *ngIf="!key" class="loading-payment">
+              <p>Initializing payment...</p>
+              <button type="button" (click)="getPaymentIntent()">Initialize Payment</button>
+            </div>
+            <app-stripe
+              *ngIf="key"
+              [clientSecret]="key"
+              [intent]="paymentIntent"
+              (paymentSuccess)="onPaymentSuccess($event)">
+            </app-stripe>
+          </form>
+        </div>
+      </div>
+      <button class="back " (click)="back()">Back</button>
+      <button class="save" (click)="confirmBooking()">Next</button>
+    </div>
+
+    <!-- <div *ngSwitchCase="5" class="confirm">
+      <h6> Your booking have been confirmed! </h6>
+      <button class="notDone" (click)="back()">Back</button>
+      <button class="done" (click)="confirmBooking(customerId)">Done</button>
+
+    </div> -->
+
+  </ng-container>
+</div>

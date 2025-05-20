@@ -1,0 +1,68 @@
+<div class="main">
+  <div class="setup-guide">
+    <h2>Setup Guide</h2>
+    <p>Use this personalized guide to set up your first bookerise link.</p>
+    <p>{{ currentStep }}/4 completed</p>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+      <div class="progress" [style.width.%]="progress"></div>
+    </div>
+
+    <!-- Step Content -->
+    <ng-container [ngSwitch]="currentStep">
+
+
+      <!-- Step 2 -->
+      <div *ngSwitchCase="1" class="step">
+        <h6>Step 1/4: Setup Business Details</h6>
+        <p>You can change these details later.</p>
+
+
+      <app-business (formSubmitted)="onBusinessFormSubmitted($event)"></app-business>
+      <button class="save " (click)="skip()">Skip</button>
+        <button class="back " (click)="back()">Back</button>
+      </div>
+
+      <!-- Add more steps as needed -->
+
+      <div *ngSwitchCase="2" class="step">
+
+        <h6>Step 2/4: Setup Payment</h6><br> <br>
+        <p> This will allow you to take full payments from customers.</p>
+        <p>Please be aware that if you complete this step,then you will be able to collect payments through bookItNow.
+        </p>
+
+        <button class="back " (click)="back()">Back</button>
+        <button class="save " (click)="skip()">Skip</button>
+
+        <button class="setupPayment" (click)="startOnboarding()" >
+            Setup Stripe</button>
+      </div>
+
+      <div *ngSwitchCase="3" class="step">
+        <h6>Step 3/4: Create your first service</h6>
+
+        <app-service-form (formSubmitted)="onServiceFormSubmitted()"></app-service-form>
+
+        <button class="save " (click)="skip()">Skip</button>
+        <button class="back " (click)="back()">Back</button>
+
+      </div>
+
+
+      <div *ngSwitchCase="4" class="step">
+
+        <h6>Step 4/4: Create your first bookItNow link</h6>
+        <p>This link will allow your business to start taking bookings from customers</p>
+
+
+        <app-booking-link-form (formSubmitted)="onBookingLinkFormSubmitted()"></app-booking-link-form>
+        <button class="back " (click)="back()">Back</button>
+        <!-- <button class="save " routerLink="/dashboard/home" (click)="save()">Dashboard</button> -->
+
+      </div>
+    </ng-container>
+  </div>
+</div>
+

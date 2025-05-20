@@ -1,0 +1,30 @@
+<form [formGroup]="bookingLinkForm" (ngSubmit)="onSubmit()">
+
+  <div class="form-group">
+    <label for="linkName"> Link Name </label>
+    <input type="text" id="linkName" formControlName="linkName" class="form-control" />
+
+  </div>
+  <div class="form-group">
+    <label for="description"> Description </label>
+    <textarea type="text" id="description" formControlName="description" class="form-control"> </textarea>
+  </div>
+  <div class="form-group">
+    <label for="services">Select service(s)</label>
+    <select class="form-control" formControlName="services" id="services" multiple>
+      <option *ngFor="let s of services" [value]="s.id"  >
+        {{s.name || (s.location || s.status || 'Unnamed service') }}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="note"> Note for customers ? </label>
+    <textarea type="text" formControlName="note" cols="20" rows="5" id="note"
+      class="form-control">Please arrive 15 minutes before the start of the service. </textarea>
+  </div>
+
+  <button type="submit" [disabled]="loading || submitted" class="CreateLink">
+    <span *ngIf="loading"></span>
+    {{loading? 'loading...' : buttonLabel}}
+  </button>
+</form>

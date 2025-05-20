@@ -1,0 +1,107 @@
+
+<p class="page-title">Bookings</p>
+
+<div class="container">
+
+  <div class="header">
+    <h2 class="title">Bookings</h2>
+    <a  class="btn"  (click)="createNewBookingFromDashboard()">+ New Bookings</a>
+  </div>
+
+  <div class="toolbar">
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Search" />
+      <button class="search-button">
+        <i class="material-icons">search</i>
+      </button>
+    </div>
+    <div class="filter-container">
+      <!-- <span class="filter-icon">
+    <i class="material-icons"></i> Filter
+      </span> -->
+      <span class="massAction">MASS ACTION</span>
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>DATE</th>
+          <th>TIME SLOT</th>
+          <th>SERVICE NAME</th>
+          <th>CUSTOMER NAME</th>
+          <th>BOOKING STATUS</th>
+          <th>PAYMENT STATUS</th>
+          <th>ACTION</th>
+          <th>SELECT</th>
+        </tr>
+      </thead>
+      <tbody>
+
+
+        <tr *ngFor="let booking of paginatedData ">
+          <td>{{ booking.id }}</td>
+          <td>{{ booking.date }}</td>
+          <td>{{ booking.timeSlot }}</td>
+          <td>{{ servicesMap[booking.serviceId!] }}</td>
+          <td>{{ customersMap[booking.customerId!]}}</td>
+          <td>{{ booking.booking_Status }}</td>
+          <td>{{ booking.payment_Status }}</td>
+          <td>
+            <div class="account-menu">
+              <button  (click)="toggleActionDropdown(booking.id!) ; $event.stopPropagation()">... </button>
+              <div class="dropdown" *ngIf="isDropdownVisible && selectedBookingId === booking.id">
+                <ul>
+                  <li><a >View <b> service detail</b></a></li>
+                  <li><a  (click)="editBooking(booking)">Edit <b> service detail</b></a></li>
+                  <li ><a (click)="deleteBooking(booking.id)"  style="color : #c52103  ">Delete <b> booking detail</b></a></li>
+                </ul>
+              </div>
+            </div>
+            </td>
+
+          <td><input type="checkbox" /></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+      <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">&#8249;</button>
+      <span>{{ currentPage }} / {{ totalPages }}</span>
+      <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage === totalPages">&#8250;</button>
+    </div>
+  </div>
+</div>
+
+ <!--Create new booking from the dashboard  Modal -->
+ <div class="modal-overlay" *ngIf="showBookingFormDialog">
+  <div class="modal-container">
+    <div class="modal-header">
+      <button class="back" (click)="closeBookingFromDialog()">✖</button>
+    </div>
+    <div class="modal-scroll-content">
+      <!-- Insert the service form component here -->
+    <app-create-booking
+    [businessId]="businessId"
+    [editBookingData]="currentBookingToEdit"
+    ></app-create-booking>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Booking from the dashboard Modal -->
+<!-- <div class="modal-overlay" *ngIf="showBookingFormDialog">
+  <div class="modal-container">
+    <div class="modal-header"></div>
+    <div class="modal-scroll-content">
+      <app-create-booking
+
+
+      ></app-create-booking>
+      <button class="back" (click)="closeBookingFromDialog()">✖</button>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,154 @@
+<ng-container [ngSwitch]="current" class="content" [class.blur]="showCustomerFormDialog">
+
+  <div *ngSwitchCase="1">
+
+    <p class="page-title">Customers</p>
+
+    <div class="container-customer">
+
+      <div class="header">
+        <h2 class="title">Customers</h2>
+        <button class="btn" (click)="openCustomerForm('create')">+ New Customer</button>
+
+      </div>
+
+      <div class="toolbar">
+        <div class="search-container">
+          <input type="text" class="search-input" placeholder="Search" [(ngModel)]="serchQuery"
+            (input)="searchCustomers()" />
+          <button class="search-button">
+            <i class="material-icons">search</i>
+          </button>
+        </div>
+        <div class="filter-container">
+          <!-- <span class="filter-icon">
+        <i class="material-icons"></i> Filter
+          </span> -->
+          <span class="massAction">MASS ACTION</span>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>NAME</th>
+              <th>Email</th>
+              <th>PHONE</th>
+              <th>BOOKINGS MADE</th>
+              <th>ACTION</th>
+              <th>SELECT</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr *ngFor="let c of paginatedData ">
+              <td>{{ c.id }}</td>
+              <td>{{ c.name}}</td>
+              <td>{{ c.email }}</td>
+              <td>{{ c.phone }}</td>
+              <td>{{ c.booking_made }}</td>
+
+               <div class="account-menu">
+              <button (click)="toggleActionDropdown(c.id) ; $event.stopPropagation()">... </button>
+              <div class="dropdown" *ngIf="isDropdownVisible && selectedCustomerId === c.id ">
+                <ul>
+                  <li><a (click)="nextStep()">View <b> Customer detail</b></a></li>
+                  <li><a (click)="openCustomerForm('update', c.id)" >Edit <b> Customer detail</b></a></li>
+                  <li><a (click)="openCustomerDeleteDialog(c.id)" style="color : #b91c1c  ">Delete <b> Customer detail</b></a></li>
+                </ul>
+              </div>
+            </div>
+              <td><input type="checkbox" /></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination Controls -->
+        <div class="pagination">
+          <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">&#8249;</button>
+          <span>{{ currentPage }} / {{ totalPages }}</span>
+          <button class="pagination-button" (click)="nextPage()"
+            [disabled]="currentPage === totalPages">&#8250;</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngSwitchCase="2">
+    <button class="back-btn" >&#8592;</button>
+    <div class="container-view">
+
+      <div class="card personal-info">
+        <div class="card-header">
+          <h3>Personal Information <span class="edit">Edit</span></h3>
+        </div>
+        <div class="card-body">
+          <p><strong>Email:</strong> Aligmail.com</p>
+          <p><strong>Country:</strong> Pakistan</p>
+          <p><strong>Address:</strong></p>
+          <p>gujrat</p>
+          <p>gujrat</p>
+          <p>gujrat</p>
+          <p>punjab</p>
+          <p>70021</p>
+          <p><strong>Notes:</strong> no</p>
+        </div>
+      </div>
+
+      <div class="card booking-history">
+        <div class="card-header">
+          <h3>Booking History <span class="mass-action">MASS ACTION</span></h3>
+        </div>
+        <div class="card-body booking-details">
+          <div class="booking-card">
+            <p><strong>Booking ID:</strong> 679099bf7ffc02f0bdcb29fd</p>
+            <p><strong>Date:</strong> Sat, 1st February 2025</p>
+            <p><strong>Service:</strong> facial</p>
+            <p><strong>Service Status:</strong> Active</p>
+            <p><strong>Time:</strong> 09:00 - 10:05</p>
+            <p><strong>Payment Status:</strong> Deposit paid</p>
+            <p><strong>Staff:</strong> Aligmail.com</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ng-container>
+
+<!-- Modal of the customer form for edit and the create new  -->
+<div class="modal-overlay" *ngIf="showCustomerFormDialog">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h3>{{isUpdateMode ? 'Update Customer' : 'Add New Customer'}}</h3>
+    </div>
+    <div class="modal-scroll-content">
+      <!-- Insert the service form component here -->
+      <app-customer-form
+      [customerFormData]="customerFormData"
+      (formSubmitted)="onFormSubmitted($event)"
+        (formClosed)=" closeCustomerFormDialog()"
+        ></app-customer-form>
+      <button class="back" (click)="closeCustomerFormDialog()">Cancel</button>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showCustomerDeleteDialog">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h3> Are you sure to delete customer permanently?</h3>
+    </div>
+    <div class="modal-scroll-content">
+      <!-- Insert the service form component here -->
+
+      <button class="back" (click)="closeCustomerDeleteDialog()">Cancel</button>
+      <button class="delete" (click)="deleteCustomer()" >Delete </button>
+
+    </div>
+  </div>
+</div>

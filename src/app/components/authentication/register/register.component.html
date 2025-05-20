@@ -1,0 +1,45 @@
+<div class="signup-container">
+  
+  <div class="signup-form">
+    <h2>Create your BookItNow account</h2>
+    <p>Sign up with email</p>
+    <form (ngSubmit)="createUser()" >
+      <!-- Username -->
+      <div class="input-group">
+       <fa-icon class="fa-icon" [icon]="faUser"></fa-icon>
+        <input type="text" placeholder="Username"  [(ngModel)]="name" name="name" />
+      </div>
+
+      <!-- Email -->
+      <div class="input-group">
+        <fa-icon class="fa-icon" [icon]="faEnvelope"></fa-icon>
+        <input  type="email" name="email" placeholder="Email" [(ngModel)]="email" />
+      </div>
+
+      <!-- Password -->
+      <div class="input-group">
+        <fa-icon class="fa-icon" [icon]="faLock"></fa-icon>
+
+        <input   [type]="isShowPassword ?'text' :  'password' " name="password" placeholder="Password" [(ngModel)]="password" />
+        <fa-icon class="fa-icon"  [icon]="isShowPassword ? faEye : faEyeSlash" (click)="showPassword()"></fa-icon>
+      </div>
+
+      <!-- Confirm Password -->
+      <!-- <div class="input-group">
+        <i class="fa fa-lock"></i>
+        <input  type="password" name="confirm"  placeholder="Confirm password" [(ngModel)]="confirm" />
+
+      </div> -->
+
+      <!-- Submit Button -->
+
+        <button type="submit" class="btn signup-btn">Sign up</button>
+
+
+    </form>
+    <p class="login-link">
+      Already have a BookItNow account? <a [routerLink]="['/login']">Login</a>
+    </p>
+  </div>
+</div>
+
