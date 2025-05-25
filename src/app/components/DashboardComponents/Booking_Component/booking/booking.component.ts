@@ -27,6 +27,8 @@ export class BookingComponent {
   servicesMap: Record<string, string> = {};   // serviceId -> serviceName
   customersMap: Record<string, string> = {};  // customerId -> customerName
 
+  showDeleteDialog = false;
+  bookingToDelete: string | null = null;
 
   constructor(
     private router: Router,
@@ -123,6 +125,23 @@ export class BookingComponent {
 
     this.currentBookingToEdit = booking;
     this.showBookingFormDialog = true;
+  }
+
+  openDeleteDialog(bookingId: string) {
+    this.bookingToDelete = bookingId;
+    this.showDeleteDialog = true;
+  }
+
+  closeDeleteDialog() {
+    this.showDeleteDialog = false;
+    this.bookingToDelete = null;
+  }
+
+  confirmDelete() {
+    if (this.bookingToDelete) {
+      this.deleteBooking(this.bookingToDelete);
+      this.closeDeleteDialog();
+    }
   }
 
   async deleteBooking(bookingId: string): Promise<void> {

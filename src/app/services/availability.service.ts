@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, Firestore, getDocs, query, setDoc, where, writeBatch } from '@angular/fire/firestore';
+import { addDoc, collection, doc, Firestore, getDocs, query, setDoc, where, writeBatch, deleteDoc } from '@angular/fire/firestore';
 import { inject, Injectable } from "@angular/core";
 import { Availability, TimeSlot } from '../interface/availability.model';
 import { FirebaseAuthService } from './firebase-auth.service';
@@ -25,12 +25,17 @@ export class AvailabilityService {
     const docRef = doc(this.firestore, `Business_Owners/${user.uid}/Services/${serviceId}/Availabilities/${availability.date}`);
     await setDoc(docRef, availability, { merge: true });
 
-    // Save time slots in a subcollection
+    // First, delete all existing time slots
     const timeSlotsCollection = collection(docRef, 'TimeSlots');
+    const existingSlots = await getDocs(timeSlotsCollection);
     const batch = writeBatch(this.firestore);
 
-    //
+    // Delete existing slots
+    existingSlots.docs.forEach(doc => {
+      batch.delete(doc.ref);
+    });
 
+    // Add new time slots
     availability.slots.forEach(slot => {
       const slotRef = doc(timeSlotsCollection); // Auto-generated ID
       batch.set(slotRef, slot);

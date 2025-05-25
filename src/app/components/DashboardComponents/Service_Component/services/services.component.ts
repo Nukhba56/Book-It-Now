@@ -21,6 +21,8 @@ export class ServicesComponent implements OnInit {
   serviceFormData: any = null;
   selectedServiceId: string | null = null;
   pendingDeleteServiceId: string | null = null;
+  showDeleteDialog = false;
+  serviceToDelete: string | null = null;
 
   constructor(
     private serviceService: ServiceService,
@@ -93,6 +95,23 @@ export class ServicesComponent implements OnInit {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.updatePagination();
+    }
+  }
+
+  openDeleteDialog(serviceId: string) {
+    this.serviceToDelete = serviceId;
+    this.showDeleteDialog = true;
+  }
+
+  closeDeleteDialog() {
+    this.showDeleteDialog = false;
+    this.serviceToDelete = null;
+  }
+
+  confirmDelete() {
+    if (this.serviceToDelete) {
+      this.deleteService(this.serviceToDelete);
+      this.closeDeleteDialog();
     }
   }
 

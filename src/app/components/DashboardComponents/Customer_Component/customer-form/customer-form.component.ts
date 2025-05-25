@@ -49,22 +49,25 @@ export class CustomerFormComponent {
       city: [''],
       customerNote: ['']
     });
-    if (this.customerFormData && this.customerFormData.id) {
-      console.log("Edit the customer from the customer dashboard by this id:", this.customerFormData.id)
-      this.CustomerId = this.customerFormData.id;
+
+    if (this.customerFormData) {
+      this.isUpdateMode = true;
       this.buttonlabel = 'Update';
-      this.createCustomerForm.patchValue(this.customerFormData); // Pre-fill the form with existing customer data
-    } else {
-      this.route.paramMap.subscribe(params => {
-        this.customerId = params.get('id'); // Only if you're editing existing customers from the booking
-        console.log("Edit customer from the update booking by this id with the help of active route:", this.CustomerId);
-        if (this.customerData) {
-          this.buttonlabel = 'Update';
-          this.createCustomerForm.patchValue(this.customerData); // Pre-fill the form with existing customer data
-        }
+      this.customerId = this.customerFormData.id;
+
+      // Pre-fill the form with existing customer data
+      this.createCustomerForm.patchValue({
+        customerName: this.customerFormData.customerName || '',
+        phone: this.customerFormData.phone || '',
+        email: this.customerFormData.email || '',
+        address: this.customerFormData.address || '',
+        state: this.customerFormData.state || '',
+        country: this.customerFormData.country || '',
+        zipCode: this.customerFormData.zipCode || '',
+        city: this.customerFormData.city || '',
+        customerNote: this.customerFormData.customerNote || ''
       });
     }
-
   }
 
   onSubmit() {

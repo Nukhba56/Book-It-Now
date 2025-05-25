@@ -1,6 +1,9 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import {faUsers , faUserCircle,  faAngleDown, faCalendarCheck , faLink ,  faHouseChimney , faClock , faGears}  from '@fortawesome/free-solid-svg-icons'
+import { FirebaseAuthService } from '../../../services/firebase-auth.service';
+import { BusinessOwner } from '../../../interface/business-owner.interface';
+import { FirestoreService } from '../../../services/firestore.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +18,38 @@ export class DashboardComponent implements OnInit {
     isResponsiveView = false;
     faUserCircle = faUserCircle;
     faAngleDown = faAngleDown;
+    businessData: BusinessOwner | null = null;
+    isBusinessFormVisible = false;
+
+    constructor(
+      public router: Router,
+      private firebaseAuthService: FirebaseAuthService,
+      private firestoreService: FirestoreService
+    ){
+      this.checkScreenSize();
+      this.loadBusinessData();
+    }
+
+    private async loadBusinessData() {
+      const user = await this.firebaseAuthService.getCurrentUser();
+      if (user) {
+        this.firestoreService.getBusinessOwner(user.uid).subscribe(data => {
+          this.businessData = data || null;
+        });
+      }
+    }
+
+    onBusinessFormSubmitted(business: BusinessOwner) {
+      this.businessData = business;
+      this.isBusinessFormVisible = false;
+    }
+
+    onBusinessFormClosed(event: string) {
+      if (event === 'refresh') {
+        this.loadBusinessData();
+      }
+      this.isBusinessFormVisible = false;
+    }
 
     toggleAccountDropdown(){
       this.isDropdownVisible = !this.isDropdownVisible;
@@ -35,8 +70,9 @@ export class DashboardComponent implements OnInit {
       { label: 'BookItNow Link', path: '/dashboard/booking-link' , icon: faLink},
     ];
 
-    constructor(public router: Router){
-      this.checkScreenSize();
+    showBusinessForm() {
+      this.isBusinessFormVisible = true;
+      this.isDropdownVisible = false;
     }
 
     ngOnInit() {
@@ -59,6 +95,22 @@ export class DashboardComponent implements OnInit {
       if (this.isResponsiveView) {
         this.isSidebarHidden = true;
       }
+    }
+
+    logout(){
+      this.firebaseAuthService.logout();
+    }
+
+    onModalBackdropClick(event: MouseEvent) {
+      // Close modal only if clicking the backdrop (not the modal content)
+      if (event.target === event.currentTarget) {
+        this.onBusinessFormClosed('close');
+      }
+    }
+
+    navigateToProfile() {
+      this.router.navigate(['/dashboard/profile']);
+      this.isDropdownVisible = false; // Close the dropdown after navigation
     }
 
   }

@@ -4,7 +4,7 @@
 
     <p class="page-title">Customers</p>
 
-    <div class="container-customer">
+    <div class="container">
 
       <div class="header">
         <h2 class="title">Customers</h2>
@@ -20,12 +20,7 @@
             <i class="material-icons">search</i>
           </button>
         </div>
-        <div class="filter-container">
-          <!-- <span class="filter-icon">
-        <i class="material-icons"></i> Filter
-          </span> -->
-          <span class="massAction">MASS ACTION</span>
-        </div>
+
       </div>
 
       <div class="table-container">
@@ -34,21 +29,23 @@
             <tr>
               <th>ID</th>
               <th>NAME</th>
-              <th>Email</th>
+              <th>EMAIL</th>
               <th>PHONE</th>
               <th>BOOKINGS MADE</th>
               <th>ACTION</th>
-              <th>SELECT</th>
+
             </tr>
           </thead>
           <tbody>
 
             <tr *ngFor="let c of paginatedData ">
               <td>{{ c.id }}</td>
-              <td>{{ c.name}}</td>
+              <td>{{ c.name }}</td>
               <td>{{ c.email }}</td>
               <td>{{ c.phone }}</td>
-              <td>{{ c.booking_made }}</td>
+              <td>
+                <span class="status-badge bookings">{{ c.booking_made }}</span>
+              </td>
 
                <div class="account-menu">
               <button (click)="toggleActionDropdown(c.id) ; $event.stopPropagation()">... </button>
@@ -56,11 +53,11 @@
                 <ul>
                   <li><a (click)="nextStep()">View <b> Customer detail</b></a></li>
                   <li><a (click)="openCustomerForm('update', c.id)" >Edit <b> Customer detail</b></a></li>
-                  <li><a (click)="openCustomerDeleteDialog(c.id)" style="color : #b91c1c  ">Delete <b> Customer detail</b></a></li>
+                  <li><a (click)="openCustomerDeleteDialog(c.id)" class="delete-action">Delete <b> Customer detail</b></a></li>
                 </ul>
               </div>
             </div>
-              <td><input type="checkbox" /></td>
+             
             </tr>
           </tbody>
         </table>
@@ -78,39 +75,58 @@
   </div>
 
   <div *ngSwitchCase="2">
-    <button class="back-btn" >&#8592;</button>
-    <div class="container-view">
+    <button class="back-btn" (click)="current = 1">&#8592; Back to Customers</button>
+    <div class="container view-container">
 
       <div class="card personal-info">
         <div class="card-header">
-          <h3>Personal Information <span class="edit">Edit</span></h3>
+          <h3>Personal Information</h3>
+          <button class="edit-btn">Edit</button>
         </div>
         <div class="card-body">
-          <p><strong>Email:</strong> Aligmail.com</p>
-          <p><strong>Country:</strong> Pakistan</p>
-          <p><strong>Address:</strong></p>
-          <p>gujrat</p>
-          <p>gujrat</p>
-          <p>gujrat</p>
-          <p>punjab</p>
-          <p>70021</p>
-          <p><strong>Notes:</strong> no</p>
+          <div class="info-row">
+            <p><strong>Email:</strong> <span>Aligmail.com</span></p>
+            <p><strong>Country:</strong> <span>Pakistan</span></p>
+          </div>
+          <div class="info-row">
+            <p><strong>Address:</strong></p>
+            <div class="address">
+              <p>gujrat</p>
+              <p>gujrat</p>
+              <p>gujrat</p>
+              <p>punjab</p>
+              <p>70021</p>
+            </div>
+          </div>
+          <div class="info-row">
+            <p><strong>Notes:</strong> <span>no</span></p>
+          </div>
         </div>
       </div>
 
       <div class="card booking-history">
         <div class="card-header">
-          <h3>Booking History <span class="mass-action">MASS ACTION</span></h3>
+          <h3>Booking History</h3>
         </div>
-        <div class="card-body booking-details">
+        <div class="card-body">
           <div class="booking-card">
-            <p><strong>Booking ID:</strong> 679099bf7ffc02f0bdcb29fd</p>
-            <p><strong>Date:</strong> Sat, 1st February 2025</p>
-            <p><strong>Service:</strong> facial</p>
-            <p><strong>Service Status:</strong> Active</p>
-            <p><strong>Time:</strong> 09:00 - 10:05</p>
-            <p><strong>Payment Status:</strong> Deposit paid</p>
-            <p><strong>Staff:</strong> Aligmail.com</p>
+            <div class="booking-header">
+              <p><strong>Booking ID:</strong> <span>679099bf7ffc02f0bdcb29fd</span></p>
+              <p><strong>Date:</strong> <span>Sat, 1st February 2025</span></p>
+            </div>
+            <div class="booking-details">
+              <p><strong>Service:</strong> <span>facial</span></p>
+              <p><strong>Time:</strong> <span>09:00 - 10:05</span></p>
+              <p><strong>Staff:</strong> <span>Aligmail.com</span></p>
+              <p>
+                <strong>Service Status:</strong>
+                <span class="status-badge active">Active</span>
+              </p>
+              <p>
+                <strong>Payment Status:</strong>
+                <span class="status-badge paid">Deposit paid</span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -120,10 +136,11 @@
 </ng-container>
 
 <!-- Modal of the customer form for edit and the create new  -->
-<div class="modal-overlay" *ngIf="showCustomerFormDialog">
-  <div class="modal-container">
+<div class="modal" *ngIf="showCustomerFormDialog" (click)="$event.target === $event.currentTarget && closeCustomerFormDialog()">
+  <div class="modal-content">
     <div class="modal-header">
-      <h3>{{isUpdateMode ? 'Update Customer' : 'Add New Customer'}}</h3>
+      <h2>{{isUpdateMode ? 'Update Customer' : 'Add New Customer'}}</h2>
+      <button class="close-btn" (click)="closeCustomerFormDialog()" title="Close">&times;</button>
     </div>
     <div class="modal-scroll-content">
       <!-- Insert the service form component here -->
@@ -132,23 +149,23 @@
       (formSubmitted)="onFormSubmitted($event)"
         (formClosed)=" closeCustomerFormDialog()"
         ></app-customer-form>
-      <button class="back" (click)="closeCustomerFormDialog()">Cancel</button>
-
     </div>
   </div>
 </div>
 
-<div class="modal-overlay" *ngIf="showCustomerDeleteDialog">
-  <div class="modal-container">
+<div class="modal" *ngIf="showCustomerDeleteDialog" (click)="$event.target === $event.currentTarget && closeCustomerDeleteDialog()">
+  <div class="modal-content delete-modal">
     <div class="modal-header">
-      <h3> Are you sure to delete customer permanently?</h3>
+      <h2>Delete Customer</h2>
+      <button class="close-btn" (click)="closeCustomerDeleteDialog()" title="Close">&times;</button>
     </div>
-    <div class="modal-scroll-content">
-      <!-- Insert the service form component here -->
-
-      <button class="back" (click)="closeCustomerDeleteDialog()">Cancel</button>
-      <button class="delete" (click)="deleteCustomer()" >Delete </button>
-
+    <div class="modal-body">
+      <p class="delete-message">Are you sure you want to delete this customer permanently?</p>
+      <p class="delete-warning">This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn btn-cancel" (click)="closeCustomerDeleteDialog()">Cancel</button>
+        <button class="btn btn-delete" (click)="deleteCustomer()">Delete Customer</button>
+      </div>
     </div>
   </div>
 </div>

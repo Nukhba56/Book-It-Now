@@ -1,61 +1,101 @@
-<form [formGroup]="businessDetailForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="businessName"> Business Name </label>
-    <input type="text" id="businessname" formControlName="businessName" class="form-control" />
-    <div *ngIf="businessDetailForm.get('businessName')?.invalid && businessDetailForm.get('cardName')?.touched"
-      class="error">
-      Business Name is required
-    </div>
-  </div>
+<!-- Business Information Card -->
+<div class="business-container">
+  <div class="business-card">
+    <div class="business-header">
+      <h2>My Business Details</h2>
 
-  <div class="form-group">
-    <label for="detail"> Business Details (Optional) </label>
-    <textarea type="text" id="detail" formControlName="detail" class="form-control"> </textarea>
-
-  </div>
-
-  <div class="form-group">
-    <label>Business Address:</label>
-    <input id="address" type="text" formControlName="address" placeholder="Address" class="form-control" />
-    <br>
-    <input id="state" name="state" formControlName="state" placeholder="State / Province" type="text"
-      class="form-control" /> <br>
-
-    <input id="city" name="city" formControlName="city" placeholder="Town or City" type="text" class="form-control" />
-
-  </div>
-  <div class="form-group">
-    <input id="code" name="code" formControlName="code" placeholder="Zip Code / Post Code" type="number"
-      class="form-control" />
-
-  </div>
-
-  <div class="form-group">
-    <label for="contactNumber">Primary Contact Number</label>
-    <input id="contactNumber" name="contactNumber" formControlName="contactNumber" type="text" class="form-control" />
-    <div *ngIf="businessDetailForm.get('contactNumber')?.invalid && businessDetailForm.get('contactNumber')?.touched"
-      class="error">
-      Contact No. is required
     </div>
 
-  </div>
-  <div class="form-group">
-    <label for="primaryEmail">Primary Contact Email</label>
-    <input id="primaryEmail" name="primaryEmail" type="primaryEmail" formControlName="primaryEmail" class="form-control" />
-    <div *ngIf="businessDetailForm.get('primaryEmail')?.invalid && businessDetailForm.get('primaryEmail')?.touched"
-      class="error">
-      Email is required
+    <!-- Business Info Display -->
+    <div class="business-info" *ngIf="!showUpdateForm">
+      <div class="info-item">
+        <label>Business Id:</label>
+        <span>{{ businessData?.id || 'Not set' }}</span>
+      </div>
+      <div class="info-item">
+        <label>Business Name:</label>
+        <span>{{ businessData?.business_name || 'Not set' }}</span>
+      </div>
+      <div class="info-item">
+        <label>Business Details:</label>
+        <span>{{ businessData?.detail || 'Not provided' }}</span>
+      </div>
+      <div class="info-item">
+        <label>Address:</label>
+        <span>{{ businessData?.address || 'Not provided' }}</span>
+      </div>
+      <div class="info-item">
+        <label>State/Province:</label>
+        <span>{{ businessData?.state || 'Not provided' }}</span>
+      </div>
+      <div class="info-item">
+        <label>City:</label>
+        <span>{{ businessData?.city || 'Not provided' }}</span>
+      </div>
+      <div class="info-item">
+        <label>Zip Code:</label>
+        <span>{{ businessData?.code || 'Not provided' }}</span>
+      </div>
+      <div class="info-item">
+        <label>Contact Number:</label>
+        <span>{{ businessData?.contactNumber || 'Not provided' }}</span>
+      </div>
+      <div class="info-item">
+        <label>Primary Email:</label>
+        <span>{{ businessData?.primaryEmail || 'Not provided' }}</span>
+      </div>
+      <button class="edit-btn" (click)="openUpdateForm()" *ngIf="!showUpdateForm">Update Business Details</button>
     </div>
+
+    <!-- Update Business Form -->
+    <form [formGroup]="businessDetailForm" (ngSubmit)="onSubmit()" *ngIf="showUpdateForm" class="update-form">
+      <div class="form-group">
+        <label for="businessName">Business Name</label>
+        <input type="text" id="businessname" formControlName="businessName" class="form-control" />
+        <div class="error-message" *ngIf="businessDetailForm.get('businessName')?.invalid && businessDetailForm.get('businessName')?.touched">
+          Business Name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="detail">Business Details (Optional)</label>
+        <textarea type="text" id="detail" formControlName="detail" class="form-control"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Business Address</label>
+        <input id="address" type="text" formControlName="address" placeholder="Address" class="form-control" />
+        <input id="state" name="state" formControlName="state" placeholder="State / Province" type="text" class="form-control" />
+        <input id="city" name="city" formControlName="city" placeholder="Town or City" type="text" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="code">Zip Code / Post Code</label>
+        <input id="code" name="code" formControlName="code" placeholder="Zip Code / Post Code" type="number" class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="contactNumber">Primary Contact Number</label>
+        <input id="contactNumber" name="contactNumber" formControlName="contactNumber" type="text" class="form-control" />
+        <div class="error-message" *ngIf="businessDetailForm.get('contactNumber')?.invalid && businessDetailForm.get('contactNumber')?.touched">
+          Contact No. is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="primaryEmail">Primary Contact Email</label>
+        <input id="primaryEmail" name="primaryEmail" type="email" formControlName="primaryEmail" class="form-control" />
+        <div class="error-message" *ngIf="businessDetailForm.get('primaryEmail')?.invalid && businessDetailForm.get('primaryEmail')?.touched">
+          Email is required
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancel-btn" (click)="cancelUpdate()">Back</button>
+        <button type="submit" class="save-btn" [disabled]="loading || submitted">
+          {{ loading ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </div>
+    </form>
   </div>
-
-  <!-- <div class="form-group">
-    <label for="logoFileInput">Business Logo</label>
-    <input type="file" (change)="onImageChange($event)" id="logoFileInput" class="form-control">
-  </div> -->
-
-  <button type="submit" [disabled]="loading || submitted" class="save">
-    <span *ngIf="loading"></span>
-    {{loading? 'loading...' : buttonLabel}}
-  </button>
-
-</form>
+</div>

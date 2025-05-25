@@ -11,12 +11,6 @@
         <i class="material-icons">search</i>
       </button>
     </div>
-    <div class="filter-container">
-      <!-- <span class="filter-icon">
-    <i class="material-icons"></i> Filter
-      </span> -->
-      <span class="massAction">MASS ACTION</span>
-    </div>
   </div>
 
   <div class="table-container">
@@ -29,7 +23,6 @@
           <th>STATUS</th>
           <th>TOTAL COST</th>
           <th>ACTION</th>
-          <th>SELECT</th>
         </tr>
       </thead>
       <tbody>
@@ -47,12 +40,11 @@
                   <li><a>View <b> service detail</b></a></li>
                   <li><a (click)="openServiceForm('update' , s)">Edit <b> service detail</b></a></li>
                   <li><a>Deactive <b> service </b> </a></li>
-                  <li><a (click)="deleteService(s.id)" style="color : #c52103  ">Delete <b> service detail</b></a></li>
+                  <li><a (click)="openDeleteDialog(s.id)" class="delete-action">Delete <b> service detail</b></a></li>
                 </ul>
               </div>
             </div>
           </td>
-          <td><input type="checkbox" /></td>
         </tr>
       </tbody>
     </table>
@@ -66,19 +58,35 @@
   </div>
 </div>
 
-
-<!-- Modal -->
-<div class="modal-overlay" *ngIf="showServiceFormDialog">
-  <div class="modal-container">
+<!-- Service Form Modal -->
+<div class="modal" *ngIf="showServiceFormDialog" (click)="$event.target === $event.currentTarget && closeServiceFormDialog()">
+  <div class="modal-content">
     <div class="modal-header">
-      <h3>{{isUpdateMode ? 'Update Service' : 'Add New Service'}}</h3>
+      <h2>{{isUpdateMode ? 'Update Service' : 'Add New Service'}}</h2>
+      <button class="close-btn" (click)="closeServiceFormDialog()" title="Close">&times;</button>
     </div>
-    <div class="modal-scroll-content">
-      <!-- Insert the service form component here -->
-      <app-service-form [serviceFormData]="serviceFormData" (formSubmitted)="onFormSubmitted()"
-        (formClosed)=" closeServiceFormDialog()"></app-service-form>
-      <button class="back" (click)="closeServiceFormDialog()">Cancel</button>
+    <app-service-form
+      [serviceFormData]="serviceFormData"
+      (formSubmitted)="onFormSubmitted()"
+      (formClosed)="closeServiceFormDialog()">
+    </app-service-form>
+  </div>
+</div>
 
+<!-- Delete Service Modal -->
+<div class="modal" *ngIf="showDeleteDialog" (click)="$event.target === $event.currentTarget && closeDeleteDialog()">
+  <div class="modal-content delete-modal">
+    <div class="modal-header">
+      <h2>Delete Service</h2>
+      <button class="close-btn" (click)="closeDeleteDialog()" title="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="delete-message">Are you sure you want to delete this service permanently?</p>
+      <p class="delete-warning">This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn btn-cancel" (click)="closeDeleteDialog()">Cancel</button>
+        <button class="btn btn-delete" (click)="confirmDelete()">Delete Service</button>
+      </div>
     </div>
   </div>
 </div>

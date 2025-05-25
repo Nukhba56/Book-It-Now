@@ -1,0 +1,74 @@
+<!-- Profile Information Card -->
+<div class="profile-container">
+  <div class="profile-card">
+    <div class="profile-header">
+      <h2>My Profile Details</h2>
+      
+    </div>
+
+    <!-- Profile Info Display -->
+    <div class="profile-info" *ngIf="!showUpdateForm">
+      <div class="profile-item">
+        <label for="User Id">User Id</label>
+        <span>{{ businessOwner?.id }}</span>
+      </div>
+      <div class="info-item">
+        <label>Name:</label>
+        <span>{{ businessOwner?.name }}</span>
+      </div>
+      <div class="info-item">
+        <label>Email:</label>
+        <span>{{ businessOwner?.email }}</span>
+      </div>
+      <div class="info-item">
+        <label>Role:</label>
+        <span>Business Owner</span>
+      </div>
+      <div class="info-item">
+        <label>Member Since:</label>
+        <span>{{ businessOwner?.created_at | date:'mediumDate' }}</span>
+      </div>
+      <button class="edit-btn" (click)="openUpdateForm()" *ngIf="!showUpdateForm">Edit Profile</button>
+    </div>
+
+    <!-- Update Profile Form -->
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" *ngIf="showUpdateForm" class="update-form">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" formControlName="name" class="form-control">
+        <div class="error-message" *ngIf="updateForm.get('name')?.touched && updateForm.get('name')?.invalid">
+          Name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" [value]="businessOwner?.email" disabled class="form-control">
+        <small class="email-note">Email cannot be changed</small>
+      </div>
+
+      <div class="form-group">
+        <label>New Password</label>
+        <input type="password" formControlName="password" class="form-control">
+        <div class="error-message" *ngIf="updateForm.get('password')?.touched && updateForm.get('password')?.invalid">
+          <span *ngIf="updateForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" formControlName="confirmPassword" class="form-control">
+        <div class="error-message" *ngIf="updateForm.get('confirmPassword')?.touched && updateForm.hasError('passwordMismatch')">
+          Passwords do not match
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancel-btn" (click)="cancelUpdate()">Cancel</button>
+        <button type="submit" class="save-btn" [disabled]="updateForm.invalid || isSubmitting">
+          {{ isSubmitting ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

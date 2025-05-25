@@ -34,6 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { CreateBookingComponent } from './components/DashboardComponents/Booking_Component/create-booking/create-booking.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { CreateBookingComponent } from './components/DashboardComponents/Booking
     BookingLinkViewComponent,
     BookingViewComponent,
     CreateBookingComponent,
+    ProfileComponent,
 
   ],
   imports: [

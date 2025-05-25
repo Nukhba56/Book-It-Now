@@ -97,10 +97,17 @@ export class CustomerComponent {
   // }
 
   //open the service form dialog for editing
-  openCustomerForm(mode: 'create' | 'update' , customer?:any){
-
+  openCustomerForm(mode: 'create' | 'update' , customerId?:any){
     this.isUpdateMode = mode === 'update';
-    this.customerFormData = this.isUpdateMode ? {...customer} : {};
+    if (this.isUpdateMode && customerId) {
+      // Find the original customer data from the customers array
+      const originalCustomer = this.customers.find(c => c.id === customerId);
+      if (originalCustomer) {
+        this.customerFormData = originalCustomer;
+      }
+    } else {
+      this.customerFormData = null;
+    }
     this.showCustomerFormDialog = true;
   }
   onFormSubmitted(updateCustomer: any){

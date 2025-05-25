@@ -67,10 +67,7 @@ export class AvailabilityComponent implements OnInit {
       return this.loadAvailabilitiesForMonth(); // returns Promise<void> so we await it
       })
     ).subscribe();
-
-
   }
-
   onServiceChange(){
     if(this.selectedServiceId !== this.route.snapshot.paramMap.get('serviceId')){
       this.router.navigate([`/dashboard/availability/${this.selectedServiceId}`]);
@@ -104,7 +101,6 @@ export class AvailabilityComponent implements OnInit {
 
     this.days = days;
   }
-
 
   async loadAvailabilitiesForMonth(): Promise<void> {
     if (!this.selectedServiceId) return;
@@ -146,21 +142,23 @@ export class AvailabilityComponent implements OnInit {
     return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
   }
 
+  async loadTimeSlotsForDate(date: Date): Promise<void> {
+    const formattedDate = this.getLocalDateString(date);
+    const slots = await this.availabilityService.getAvailableSlots(this.selectedServiceId!, formattedDate);
+    this.timeSlots = slots?.length ? slots : this.generateDefaultTimeSlots();
+  }
+
   async selectDay(day: any): Promise<void> {
     if (day.isPast || !day.date) return;
 
     this.selectedDate = new Date(day.date);
-
     const formattedDate = this.getLocalDateString(this.selectedDate!);
-    const availability = await this.availabilityService.getAvailability(this.selectedServiceId!, formattedDate);
+    const slots = await this.availabilityService.getAvailableSlots(this.selectedServiceId!, formattedDate);
 
-    this.timeSlots = availability && availability.slots?.length
-      ? availability.slots
-      : this.generateDefaultTimeSlots();
+    this.timeSlots = slots?.length ? slots : this.generateDefaultTimeSlots();
     this.showModal = true;
     console.log('Selected Date:', this.selectedDate);
     console.log('Loaded Time Slots:', this.timeSlots);
-
   }
 
   async saveSlots(): Promise<void> {
@@ -243,15 +241,6 @@ export class AvailabilityComponent implements OnInit {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
-  }
-
-  async loadTimeSlotsForDate(date: Date): Promise<void> {
-    const formattedDate = this.getLocalDateString(date);
-    const availability = await this.availabilityService.getAvailability(this.selectedServiceId!, formattedDate);
-
-    this.timeSlots = availability && availability.slots?.length
-      ? availability.slots
-      : this.generateDefaultTimeSlots();
   }
 
   resetToDefault(day: any, event: MouseEvent) {

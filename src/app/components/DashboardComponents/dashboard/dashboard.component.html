@@ -28,13 +28,28 @@
         <button (click)="toggleAccountDropdown()"><fa-icon class="fa-icon" [icon]="faUserCircle"></fa-icon>&nbsp;   Account <fa-icon  [icon]="faAngleDown"></fa-icon></button>
         <div class="dropdown" *ngIf="isDropdownVisible">
           <ul>
-            <li><a>Profile</a></li>
-            <li><a>Settings</a></li>
-            <li><a >Logout</a></li>
+            <li><a (click)="navigateToProfile()">Profile</a></li>
+            <li><a style="cursor: pointer;" (click)="showBusinessForm()">Business Details</a></li>
+            <li><a (click)="logout()">Logout</a></li>
           </ul>
         </div>
       </div>
     </header>
+
+    <!-- Business Form Modal -->
+    <div class="modal" *ngIf="isBusinessFormVisible" (click)="onModalBackdropClick($event)">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Update Business Details</h2>
+          <button class="close-btn" (click)="onBusinessFormClosed('close')" title="Close">&times;</button>
+        </div>
+        <app-business
+          [businessData]="businessData"
+          (formSubmitted)="onBusinessFormSubmitted($event)"
+          (formClosed)="onBusinessFormClosed($event)">
+        </app-business>
+      </div>
+    </div>
 
     <router-outlet></router-outlet>
   </main>

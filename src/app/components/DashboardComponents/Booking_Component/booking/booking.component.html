@@ -1,11 +1,9 @@
-
 <p class="page-title">Bookings</p>
 
 <div class="container">
-
   <div class="header">
     <h2 class="title">Bookings</h2>
-    <a  class="btn"  (click)="createNewBookingFromDashboard()">+ New Bookings</a>
+    <button class="btn" (click)="createNewBookingFromDashboard()">+ New Booking</button>
   </div>
 
   <div class="toolbar">
@@ -15,16 +13,10 @@
         <i class="material-icons">search</i>
       </button>
     </div>
-    <div class="filter-container">
-      <!-- <span class="filter-icon">
-    <i class="material-icons"></i> Filter
-      </span> -->
-      <span class="massAction">MASS ACTION</span>
-    </div>
   </div>
 
   <div class="table-container">
-    <table>
+    <table *ngIf="paginatedData && paginatedData.length > 0">
       <thead>
         <tr>
           <th>ID</th>
@@ -35,73 +27,93 @@
           <th>BOOKING STATUS</th>
           <th>PAYMENT STATUS</th>
           <th>ACTION</th>
-          <th>SELECT</th>
+
         </tr>
       </thead>
       <tbody>
-
-
-        <tr *ngFor="let booking of paginatedData ">
+        <tr *ngFor="let booking of paginatedData">
           <td>{{ booking.id }}</td>
           <td>{{ booking.date }}</td>
           <td>{{ booking.timeSlot }}</td>
-          <td>{{ servicesMap[booking.serviceId!] }}</td>
-          <td>{{ customersMap[booking.customerId!]}}</td>
-          <td>{{ booking.booking_Status }}</td>
-          <td>{{ booking.payment_Status }}</td>
+          <td>{{ servicesMap[booking.serviceId!] || 'N/A' }}</td>
+          <td>{{ customersMap[booking.customerId!] || 'N/A' }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="booking.booking_Status?.toLowerCase()">
+              {{ booking.booking_Status }}
+            </span>
+          </td>
+          <td>
+            <span class="status-badge" [ngClass]="booking.payment_Status?.toLowerCase()">
+              {{ booking.payment_Status }}
+            </span>
+          </td>
           <td>
             <div class="account-menu">
-              <button  (click)="toggleActionDropdown(booking.id!) ; $event.stopPropagation()">... </button>
+              <button (click)="toggleActionDropdown(booking.id!) ; $event.stopPropagation()">...</button>
               <div class="dropdown" *ngIf="isDropdownVisible && selectedBookingId === booking.id">
                 <ul>
-                  <li><a >View <b> service detail</b></a></li>
-                  <li><a  (click)="editBooking(booking)">Edit <b> service detail</b></a></li>
-                  <li ><a (click)="deleteBooking(booking.id)"  style="color : #c52103  ">Delete <b> booking detail</b></a></li>
+                  <li><a>View <b>booking detail</b></a></li>
+                  <li><a (click)="editBooking(booking)">Edit <b>booking detail</b></a></li>
+                  <li><a (click)="openDeleteDialog(booking.id!)" class="delete-action">Delete <b>booking detail</b></a></li>
                 </ul>
               </div>
             </div>
-            </td>
+          </td>
 
-          <td><input type="checkbox" /></td>
         </tr>
       </tbody>
     </table>
 
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!paginatedData || paginatedData.length === 0">
+      <i class="material-icons">event_busy</i>
+      <h3>No Bookings Found</h3>
+      <p>There are no bookings to display at the moment. Create a new booking to get started.</p>
+    </div>
+
     <!-- Pagination Controls -->
-    <div class="pagination">
-      <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">&#8249;</button>
-      <span>{{ currentPage }} / {{ totalPages }}</span>
-      <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage === totalPages">&#8250;</button>
+    <div class="pagination" *ngIf="paginatedData && paginatedData.length > 0">
+      <button class="pagination-button" (click)="previousPage()" [disabled]="currentPage === 1">
+        <i class="material-icons">chevron_left</i>
+      </button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button class="pagination-button" (click)="nextPage()" [disabled]="currentPage === totalPages">
+        <i class="material-icons">chevron_right</i>
+      </button>
     </div>
   </div>
 </div>
 
- <!--Create new booking from the dashboard  Modal -->
- <div class="modal-overlay" *ngIf="showBookingFormDialog">
-  <div class="modal-container">
+<!-- Booking Form Modal -->
+<div class="modal" *ngIf="showBookingFormDialog" (click)="$event.target === $event.currentTarget && closeBookingFromDialog()">
+  <div class="modal-content">
     <div class="modal-header">
-      <button class="back" (click)="closeBookingFromDialog()">✖</button>
+      <h2>{{currentBookingToEdit ? 'Update Booking' : 'Create New Booking'}}</h2>
+      <button class="close-btn" (click)="closeBookingFromDialog()" title="Close">&times;</button>
     </div>
-    <div class="modal-scroll-content">
-      <!-- Insert the service form component here -->
-    <app-create-booking
-    [businessId]="businessId"
-    [editBookingData]="currentBookingToEdit"
-    ></app-create-booking>
+    <div class="modal-body">
+      <app-create-booking
+        [businessId]="businessId"
+        [editBookingData]="currentBookingToEdit">
+      </app-create-booking>
     </div>
   </div>
 </div>
 
-<!-- Edit Booking from the dashboard Modal -->
-<!-- <div class="modal-overlay" *ngIf="showBookingFormDialog">
-  <div class="modal-container">
-    <div class="modal-header"></div>
-    <div class="modal-scroll-content">
-      <app-create-booking
-
-
-      ></app-create-booking>
-      <button class="back" (click)="closeBookingFromDialog()">✖</button>
+<!-- Delete Booking Modal -->
+<div class="modal" *ngIf="showDeleteDialog" (click)="$event.target === $event.currentTarget && closeDeleteDialog()">
+  <div class="modal-content delete-modal">
+    <div class="modal-header">
+      <h2>Delete Booking</h2>
+      <button class="close-btn" (click)="closeDeleteDialog()" title="Close">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="delete-message">Are you sure you want to delete this booking permanently?</p>
+      <p class="delete-warning">This action cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn btn-cancel" (click)="closeDeleteDialog()">Cancel</button>
+        <button class="btn btn-delete" (click)="confirmDelete()">Delete Booking</button>
+      </div>
     </div>
   </div>
-</div> -->
+</div>

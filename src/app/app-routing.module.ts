@@ -14,6 +14,7 @@ import { BookingComponent } from './components/DashboardComponents/Booking_Compo
 import { BusinessComponent } from './components/business/business.component';
 import { CreateBookingComponent } from './components/DashboardComponents/Booking_Component/create-booking/create-booking.component';
 import { ServiceFormComponent } from './components/DashboardComponents/Service_Component/service-form/service-form.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -52,13 +53,11 @@ const routes: Routes = [
             path:":id" , component: ServicesComponent
           }
         ]
-
       },
       {
         path:"availability" , component:AvailabilityComponent ,
         children:[
           { path:'' , component:AvailabilityComponent},
-
           { path:":serviceId" , component:AvailabilityComponent}
         ]
       },
@@ -67,11 +66,12 @@ const routes: Routes = [
       },
       {
         path:"createBooking_fromDashboard" , component: CreateBookingComponent ,
+      },
+      {
+        path:"profile" , component: ProfileComponent
       }
-
     ]
   },
-
   {
     path:"customer_booking/:businessId" , component: CreateBookingComponent
   }
